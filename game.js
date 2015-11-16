@@ -2,12 +2,10 @@ window.onload = function() {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
     var player, platforms, cursors, stars, score = 0, scoreText;
     function preload() {
-
         game.load.image('sky', 'assets/sky.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('star', 'assets/star.png');
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-
     }
     function create() {
 
@@ -98,23 +96,19 @@ window.onload = function() {
         }
         else if (cursors.right.isDown)
         {
-            //  Move to the right
-            player.body.velocity.x = 150;
-
-            player.animations.play('right');
+            whenRight();
         }
         else
         {
             //  Stand still
             player.animations.stop();
-
             player.frame = 4;
         }
 
         //  Allow the player to jump if they are touching the ground.
         if (cursors.up.isDown && player.body.touching.down)
         {
-            player.body.velocity.y = -350;
+            whenUp();
         }
 
     }
@@ -133,7 +127,14 @@ window.onload = function() {
         player.body.velocity.x = -150;
         player.animations.play('left');
     }
-
+    function goRight() {
+        //  Move to the right
+        player.body.velocity.x = 150;
+        player.animations.play('right');
+    }
+    function goUp(){
+        player.body.velocity.y = -350;
+    }
 /*
     =======================================================================================
     MASON - This is your bit down here... PLEASE don't alter any of the code above...
@@ -144,6 +145,14 @@ window.onload = function() {
 */
     function whenLeft(){
         goLeft();
+    }
+
+    function whenRight() {
+        goRight();
+    }
+
+    function whenUp() {
+        goUp();
     }
 
 
